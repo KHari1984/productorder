@@ -1,0 +1,30 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+       {{pageTitle}}
+    </div>
+    <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> Order Id</th>                     
+                        <th> Product Name</th>
+                        <th> Order Date</th>
+                        <th> Sale Price</th>
+                       
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of Orders">
+                        <td>{{order.OrderId}}</td>
+                        <td>{{order.productName}}</td>
+                        <td>{{order.OrderDate}}</td>
+                        <td>{{order.Saleprice}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
