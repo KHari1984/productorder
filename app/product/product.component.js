@@ -5,61 +5,43 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var product_service_1 = require("./product-service");
 var ProductComponent = /** @class */ (function () {
-    function ProductComponent() {
+    function ProductComponent(ProductService) {
+        this.ProductService = ProductService;
         this.pageTitle = '****Product List****';
+        this.imagewidth = 40;
         this.showImage = true;
-        this.products = [{
-                "productId": 1,
-                "productName": "Leaf Rake",
-                "productCode": "GDN-0011",
-                "releaseDate": "March 19, 2016",
-                "description": "Leaf rake with 48-inch wooden handle.",
-                "price": 19.95,
-                "starRating": 3.2,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/26215/Anonymous_Leaf_Rake.png"
-            },
-            {
-                "productId": 2,
-                "productName": "Garden Cart",
-                "productCode": "GDN-0023",
-                "releaseDate": "March 18, 2016",
-                "description": "15 gallon capacity rolling garden cart",
-                "price": 32.99,
-                "starRating": 4.2,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/58471/garden_cart.png"
-            },
-            {
-                "productId": 5,
-                "productName": "Hammer",
-                "productCode": "TBX-0048",
-                "releaseDate": "May 21, 2016",
-                "description": "Curved claw steel hammer",
-                "price": 8.9,
-                "starRating": 4.8,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/73/rejon_Hammer.png"
-            },
-            {
-                "productId": 8,
-                "productName": "Saw",
-                "productCode": "TBX-0022",
-                "releaseDate": "May 15, 2016",
-                "description": "15-inch steel blade hand saw",
-                "price": 11.55,
-                "starRating": 3.7,
-                "imageUrl": "http://openclipart.org/image/300px/svg_to_png/27070/egore911_saw.png"
-            }];
+        this.ShowList = false;
+        this.ShowTable = true;
     }
     ProductComponent.prototype.toggleImage = function () {
         this.showImage = !this.showImage;
     };
+    ProductComponent.prototype.toggleList = function () {
+        this.ShowList = !this.ShowList;
+        this.ShowTable = !this.ShowTable;
+    };
+    ProductComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.ProductService.getProducts()
+            .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
+    };
+    ProductComponent.prototype.onRatingClicked = function (message) {
+        this.ratingValue = message;
+    };
     ProductComponent = __decorate([
         core_1.Component({
             selector: 'edu-product',
-            templateUrl: 'app/product/product.component.html'
-        })
+            templateUrl: 'app/product/product.component.html',
+            styleUrls: ['app/product/style.css']
+        }),
+        __metadata("design:paramtypes", [product_service_1.ProductService])
     ], ProductComponent);
     return ProductComponent;
 }());

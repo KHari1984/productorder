@@ -1,24 +1,54 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-       {{pageTitle}}
+        {{pageTitle}}
     </div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-2">Filter By:</div>
             <div class="col-md-4">
-                <input type="text" />
+                <input type="text" [(ngModel)]="filterText" />
+            </div>
+            <div class="row">
+                <button class="btn btn-success" (click)="toggleList()">
+                    {{ShowTable?"ShowList":"ShowTable"}}
+                </button>
             </div>
         </div>
-        <div class="table-responsive">
+        <div class="row">
+            <div *ngIf="ShowList">
+            <ul  *ngFor="let product of products|productFilter:filterText">
+                <li class="grid-container"> 
+                    <span class="glyphicon glyphicon-th-list"></span>
+                    <span>{{product.productId}}</span>
+                    <span>
+                        <img [src]="product.imageUrl" [style.width.px]="imagewidth">
+                    </span>
+                    <i class="material-icons" style="color:red">chevron_right</i>
+                    <span>{{product.productName}}</span>
+                    <span class="glyphicon glyphicon-arrow-right" style="color:blue"></span>
+                    <span> {{product.productCode}}</span>
+                    <span class="glyphicon glyphicon-arrow-right" style="color:pink"></span>
+                    <span> {{product.releaseDate}}</span>
+                    <span class="glyphicon glyphicon-arrow-right" style="color:green"></span>
+                    <span>{{product.price|currency:'USD':true}}</span>
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    <span>
+                            <edu-star></edu-star>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        </div>
+        <div class="table-responsive" *ngIf="ShowTable">
             <table class="table">
                 <thead>
                     <tr>
-                       <th> Product Id</th>
+                        <th> Product Id</th>
                         <th>
                             <button class="btn btn-success" (click)="toggleImage()">
-                               {{showImage?"ShowImage":"HideImage"}}
+                                {{showImage?"ShowImage":"HideImage"}}
                             </button>
-                        </th>                       
+                        </th>
                         <th> Product Name</th>
                         <th> code</th>
                         <th> Available</th>
@@ -28,15 +58,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products">
+                    <tr *ngFor="let product of products | productFilter:filterText">
                         <td>{{product.productId}}</td>
-                        <td><img [src]="product.imageUrl" *ngIf="showImage"></td>
-                        <td>{{product.productName}}</td>
+                        <td>
+                            <img [src]="product.imageUrl" [style.width.px]="imagewidth" *ngIf="showImage">
+                        </td>
+                        <td>{{product.productName|uppercase}}</td>
                         <td>{{product.productCode}}</td>
                         <td>{{product.releaseDate}}</td>
-                        <td>{{product.price}}</td>
-                        <td>{{product.starRating}}</td>
-
+                        <td>{{product.price|currency:'USD':true}}</td>
+                        <edu-star [rating]="product.starRating"
+                        (ratingClicked)='onRatingClicked($event)'></edu-star>
                     </tr>
                 </tbody>
             </table>

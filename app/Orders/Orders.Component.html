@@ -3,6 +3,13 @@
        {{pageTitle}}
     </div>
     <div class="panel-body">
+            <div class="row">
+                    <div class="col-md-2">Filter By:</div>
+                    <div class="col-md-4">
+                        <input type="text" [(ngModel)]="filterText"/>
+                    </div>
+                   
+                </div>
           <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -11,16 +18,18 @@
                         <th> Product Name</th>
                         <th> Order Date</th>
                         <th> Sale Price</th>
+                        <th> Rating</th>
                        
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let order of Orders">
+                    <tr *ngFor="let order of Orders|orderFilter:filterText">
                         <td>{{order.OrderId}}</td>
-                        <td>{{order.productName}}</td>
+                        <td>{{order.productName|lowercase}}</td>
                         <td>{{order.OrderDate}}</td>
-                        <td>{{order.Saleprice}}</td>
+                        <td>{{order.Saleprice|currency:'USD':true}}</td>
+                        <td><edu-star></edu-star></td>
 
                     </tr>
                 </tbody>

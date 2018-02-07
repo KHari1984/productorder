@@ -8,18 +8,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
 var robot_component_1 = require("./robot.component");
+var product_filter_pipe_1 = require("./product/product-filter.pipe");
 var product_component_1 = require("./product/product.component");
+var star_componet_1 = require("./shared/star.componet");
 var Orders_Component_1 = require("./Orders/Orders.Component");
+var Order_filter_1 = require("./Orders/Order-filter");
+var product_service_1 = require("./product/product-service");
+var http_1 = require("@angular/http");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
-            declarations: [app_component_1.appComponent, robot_component_1.robotComponent, product_component_1.ProductComponent, Orders_Component_1.OrderComponent],
-            bootstrap: [app_component_1.appComponent]
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule, http_1.HttpModule
+            ],
+            declarations: [
+                app_component_1.appComponent,
+                robot_component_1.robotComponent,
+                product_component_1.ProductComponent,
+                product_filter_pipe_1.ProductFilter,
+                Order_filter_1.OrderFilter,
+                star_componet_1.StarComponent,
+                Orders_Component_1.OrderComponent
+            ],
+            providers: [product_service_1.ProductService],
+            bootstrap: [
+                app_component_1.appComponent
+            ]
         })
     ], AppModule);
     return AppModule;

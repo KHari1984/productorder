@@ -7,16 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var appComponent = /** @class */ (function () {
-    function appComponent() {
+var ProductFilter = /** @class */ (function () {
+    function ProductFilter() {
     }
-    appComponent = __decorate([
-        core_1.Component({
-            selector: 'edu-app',
-            template: "<div>\n           \n            <div class=\"row\">            \n            <edu-product></edu-product>            \n            </div>\n\n            <div class=\"row\">           \n            <edu-order></edu-order>\n            </div>\n\n            <div class=\"row\">\n            <edu-robot></edu-robot>\n            </div>\n            \n</div>"
+    ProductFilter.prototype.transform = function (value, filterBy) {
+        filterBy = filterBy ? filterBy.toLowerCase() : null;
+        return filterBy ? value.filter(function (product) {
+            return product.productName.toLowerCase().indexOf(filterBy) !== -1;
+        }) : value;
+    };
+    ProductFilter = __decorate([
+        core_1.Pipe({
+            name: 'productFilter'
         })
-    ], appComponent);
-    return appComponent;
+    ], ProductFilter);
+    return ProductFilter;
 }());
-exports.appComponent = appComponent;
-//# sourceMappingURL=app.component.js.map
+exports.ProductFilter = ProductFilter;
+//# sourceMappingURL=product-filter.pipe.js.map
